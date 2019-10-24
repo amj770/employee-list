@@ -1,0 +1,42 @@
+<header>
+  <nav class="navbar navbar-default">
+    <a class="navbar-brand" href="#">Employee List</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="row">
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
+    </nav>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th (click)="sort('cust_id')">Employee ID
+            <span class="glyphicon sort-icon" *ngIf="key =='cust_id'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('cust_name')">Name
+            <span class="glyphicon sort-icon" *ngIf="key =='cust_name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('cust_email')">Email
+            <span class="glyphicon sort-icon" *ngIf="key =='cust_email'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th (click)="sort('cust_phn')">Phn No
+            <span class="glyphicon sort-icon" *ngIf="key =='cust_phn'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: 15, currentPage: p }; let i = index">
+          <td>{{i +1}}</td>
+          <td>{{employee.cust_id}}</td>
+          <td>{{employee.cust_name}}</td>
+          <td>{{employee.cust_email}}</td>
+          <td>{{employee.cust_phn}}</td>
+        </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </table>
+  </div>
+</div>
